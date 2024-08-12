@@ -1,0 +1,108 @@
+/* Base styles */
+.contact-container {
+    width: 90%; /* Increased to allow more flexibility */
+    max-width: 650px;
+    margin: 4% auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.contact-container h2 {
+    text-align: center;
+    color: #f9f9f9;
+    font-size: 2rem; /* Adjusted for better scaling */
+}
+
+.contact-card {
+    margin-top: 20px;
+}
+
+.contact-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.5rem; /* Adjusted for better scaling */
+}
+
+.contact-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 1rem; /* Adjusted for better scaling */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .contact-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .contact-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .homebutton {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-container {
+        padding: 10px;
+    }
+
+    .contact-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .contact-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .contact-card p {
+        font-size: 0.9rem;
+    }
+
+    .homebutton {
+        display: none;
+    }
+}
+
+/* Background image container */
+.backimg {
+    background-image: url("../../assets/loginpg.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Ensures full height on all devices */
+    width: 100%; /* Full width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Home button styles */
+.homebutton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #000000;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+}
+
+.homebutton:hover {
+    background-color: #a7b2bd;
+    color: #000000;
+    font-weight: bold !important;
+}

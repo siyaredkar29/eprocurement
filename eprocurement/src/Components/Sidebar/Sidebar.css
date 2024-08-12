@@ -1,0 +1,88 @@
+.welcome-text{
+  color: black;
+  background-color: rgb(245, 245, 245);
+}
+
+.menu{
+  background-color: rgba(205, 231, 255, 1.00);
+  width:160%;
+  font-size: large;
+  
+}
+.side{
+  z-index: 2;
+}
+
+.menu-item
+{
+  margin-top: 8% !important;
+  font-weight: bold;
+}
+.menu-item1
+{
+  margin-top: 8% !important;
+  font-size: larger;
+}
+.ant-menu-item-icon {
+  font-size: 150% !important; /* Adjust the size as needed */
+  
+}
+.ant-submenu-item-icon{
+  font-size: 40px !important;
+  
+}
+.submenu-item .anticon{
+  font-size: 10px !important;
+}
+.submenu-item{
+  height: 100% !important  ;
+  font-size:medium;
+}
+
+.ant-layout-sider-collapsed .menu-item  {
+  margin-top:45%  !important; /* Adjust as needed */
+}
+.ant-layout-sider .sider2{
+  align-items: right !important;
+}
+
+.content{
+  flex: 1;
+  
+}
+.ant-layout-content 
+{
+  width: 50% !important;
+  margin-top: 5%;
+  z-index: 1;
+}
+.ant-layout-content .slick-next, 
+.ant-layout-content .slick-prev{
+  color: rgb(69, 69, 69); 
+}
+.menu1{
+  width: auto;
+  background-color: rgba(205, 231, 255, 1.00);
+  z-index: 2;
+}
+.ant-layout-sider
+{
+  background-color: rgb(245, 245, 245) !important; 
+}
+
+.head{
+  background-color: rgba(205, 231, 255, 1.00);
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+.line{
+  width: 80%;
+  margin-left: 10%;
+  border: 1px solid gray;
+}
+
+@media (max-width: 950px){
+  .title-cont{
+      margin-left:-60px !important;
+  }
+}

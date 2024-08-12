@@ -1,0 +1,45 @@
+.search {
+    margin-top: 2% ;
+      display: flex;
+        justify-content: center;
+        background-color:rgb(245, 245, 245);
+    }
+    
+    .bar{
+        width: 40%;
+        
+        background: linear-gradient(45deg, rgb(42, 205, 255), blue);
+        padding: 3px;
+        border-radius: 8px;
+    }
+    
+    .label{
+        width: 25%;
+        border-radius: 35px;
+        border: 17px;
+        font-size: 3vw;
+    }
+    
+    .outline{
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+    }
+    .para{
+        margin-left: 30%;
+        text-align: center;
+        font-size:small;
+        color: blue;
+    }
+    
+    @media (max-width: 950px) {
+        .outline{
+            margin-top: 25% !important;
+        }
+    }
+    
+    @media (max-width: 1090px) {
+        .outline{
+            margin-top: 10%;
+        }
+    }

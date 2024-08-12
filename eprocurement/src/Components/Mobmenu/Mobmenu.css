@@ -1,0 +1,22 @@
+.card {
+  width: 60%;
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center;
+  margin: 2%;
+  background-color: rgb(186, 220, 251);
+  color: rgb(0, 25, 125);
+}
+.maincard {
+  display: flex; /* Change from block to flex */
+  flex-direction: column; /* Arrange cards in a column */
+  justify-content: center; /* Horizontally center */
+  align-items: center;
+  
+  
+}
+h2{
+    text-align: center;
+    background-color: black;
+    color: white;
+}

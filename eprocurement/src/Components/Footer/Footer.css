@@ -1,0 +1,29 @@
+.footer1{
+    background-color: rgba(205, 231, 255, 1.00);
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6vw;
+    margin-top: 10%;
+}
+.footer2,.footer2 a{
+    background-color: black;
+}
+.footer2{
+    padding: 2%;
+}
+.fele{
+    margin: 2% ;
+}
+img{
+    width: 15%;
+}
+
+.footer3 {
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    font-size: 1.3vw;
+    color: white;
+}
