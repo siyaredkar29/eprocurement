@@ -1,0 +1,74 @@
+[
+    {
+      "name": "Beach Cleaning Services",
+      "location": "Panaji, Goa",
+      "organisation": "Goa Tourism Department",
+      "category": "service",
+      "productCategory": "environmental",
+      "expire": "within 7 days",
+      "classification": "Environmental Services",
+      "status": "open",
+      "cancelled": false,
+      "rerendered": false
+    },
+    {
+      "name": "Construction of Coastal Road",
+      "location": "Margao, Goa",
+      "organisation": "Goa Public Works Department",
+      "category": "works",
+      "productCategory": "civil",
+      "expire": "beyond 7 days",
+      "classification": "Infrastructure",
+      "status": "open",
+      "cancelled": false,
+      "rerendered": false
+    },
+    {
+      "name": "Supply of Medical Equipment",
+      "location": "Vasco da Gama, Goa",
+      "organisation": "Goa Health Department",
+      "category": "goods",
+      "productCategory": "medical",
+      "expire": "today",
+      "classification": "Healthcare",
+      "status": "pending",
+      "cancelled": false,
+      "rerendered": false
+    },
+    {
+      "name": "IT Infrastructure Upgrade",
+      "location": "Panaji, Goa",
+      "organisation": "Goa IT Department",
+      "category": "service",
+      "productCategory": "IT",
+      "expire": "tomorrow",
+      "classification": "Technology",
+      "status": "open",
+      "cancelled": false,
+      "rerendered": true
+    },
+    {
+      "name": "Marine Research Project",
+      "location": "Vasco da Gama, Goa",
+      "organisation": "Goa Marine Research Institute",
+      "category": "works",
+      "productCategory": "marine",
+      "expire": "within 7 days",
+      "classification": "Research",
+      "status": "closed",
+      "cancelled": true,
+      "rerendered": false
+    },
+    {
+      "name": "Food Supply for Government Schools",
+      "location": "Mapusa, Goa",
+      "organisation": "Goa Education Department",
+      "category": "goods",
+      "productCategory": "food",
+      "expire": "beyond 7 days",
+      "classification": "Supply",
+      "status": "open",
+      "cancelled": false,
+      "rerendered": false
+    }
+  ]

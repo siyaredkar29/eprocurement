@@ -3,10 +3,14 @@ import { Button, Carousel, Layout, Typography } from "antd";
 import { Menu } from "antd";
 import "../Hero/Hero.css";
 
-const cashew = "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2FOIG3.jpg?alt=media&token=40244f75-0132-4327-b106-3fee88db3d46";
-const beach = "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2FGoa%2C%20India.jpg?alt=media&token=72852193-dc10-4663-a647-94a7352f8755";
-const church = "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2Fwhite%20and%20blue.jpg?alt=media&token=bd422f5f-fede-4794-832c-2a9ace66828a";
-const sadolxem = "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2FSadolxem.jpg?alt=media&token=1b6b1537-03e4-47ae-ae73-10963a1b868c";
+const cashew =
+  "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2FOIG3.jpg?alt=media&token=40244f75-0132-4327-b106-3fee88db3d46";
+const beach =
+  "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2FGoa%2C%20India.jpg?alt=media&token=72852193-dc10-4663-a647-94a7352f8755";
+const church =
+  "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2Fwhite%20and%20blue.jpg?alt=media&token=bd422f5f-fede-4794-832c-2a9ace66828a";
+const sadolxem =
+  "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2FSadolxem.jpg?alt=media&token=1b6b1537-03e4-47ae-ae73-10963a1b868c";
 
 import {
   FileSearchOutlined,
@@ -54,10 +58,10 @@ const Sidebar = () => {
     );
   };
 
-  const func2 = (info) => {
+  const func2 = (info,route) => {
     return (
       <>
-        <Menu.Item className="menu-item1">{info}</Menu.Item>
+        <Menu.Item  onClick={() => window.location.assign(route)} className="menu-item1">{info}</Menu.Item>
         <hr className="line" />
       </>
     );
@@ -177,9 +181,9 @@ const Sidebar = () => {
               LOGIN
             </Menu.Item>
           )}
-          
+
           <hr className="line" />
-          {func2("Tenders by location")}
+          {func2("Tenders by location","/tender-by-location")}
           {func2("Tenders by Organisation")}
           {func2("Tenders by Classification")}
           {func2("Tenders in Archive")}

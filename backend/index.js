@@ -1,42 +1,30 @@
-
 const cors = require("cors")
-//creating localhost for hosting
-
-const express =require("express")
-const mongoose = require("mongoose")
-const userRoutes = require("./Routes/userRoutes")
-
-require("dotenv").config()
-
-
-
+const express = require("express");
+const mongoose = require("mongoose");
+const userRoutes = require("./routes/userRoutes");
 const app = express();
+const tenderRoutes = require('./Routes/tenderRoutes');
+const verifyJWT = require("./middleware/jwtAuth");
+require("dotenv").config();
 
-
-
-
-//middlewares
+//MIDDLEWARE
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (request, response) => {
+  //response.sendFile("C:\\Users\\Tanvi\\Documents\\INTERNSHIP ITG\\backend\\hi.html")
+});
 
 
-app.get("/",(request,response)=>{
-    //response.send("<h1>hello")
-})
-
-
-
-app.use("/users",userRoutes)
-
-
-mongoose.connect(process.env.DB_URL).then(()=>{
-    console.log("connected")
-    app.listen(process.env.PORT,()=>{
-        console.log("hosted")
-    })
-}).catch((e)=>{
-    console.log(e)
-})
-
-//finish
+app.use("/users", userRoutes);
+app.use("/tenders",tenderRoutes);
+try {
+  mongoose.connect(process.env.DB_URL).then(() => {
+    console.log("successfulyy connected");
+    app.listen(process.env.PORT, () => {
+      console.log("hosted");
+    });
+  });
+} catch (error) {
+  console.log(error);
+}

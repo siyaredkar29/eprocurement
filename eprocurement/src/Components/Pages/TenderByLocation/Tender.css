@@ -1,0 +1,108 @@
+.tender-search-form {
+    max-width: 40%;
+    margin-top: 7%;
+    margin-left: 4%;
+    padding: 5%;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 32px 0 rgba(0, 0, 0, 0.44);
+    
+    /* Responsive adjustments */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tender-search-form .ant-form-item-label > label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Submit Button */
+.submitt {
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    color: rgb(255, 255, 255);
+    margin-top: 10%;
+    width: 25%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.submitt.ant-btn:hover {
+    background-color: #d8d8d8 !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+/* Background Image */
+.backimg {
+    background-image: url("../../../assets/loginpg.jpeg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Additional text styling */
+.ptext {
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+/* Tender Results Container */
+.tender-results-container {
+    margin-top: 30px;
+}
+
+.tender-results {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+    .tender-search-form {
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .tender-search-form {
+        max-width: 80%;
+        padding: 4%;
+        margin-top: 10%;
+    }
+
+    .submitt {
+        width: 100%;
+        font-size: 14px;
+        width: 25%;
+    }
+
+    .ptext {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tender-search-form {
+        max-width: 90%;
+        padding: 3%;
+        margin-top: 15%;
+    }
+
+    .submitt {
+        width: 100%;
+        font-size: 12px;
+        padding: 8px;
+        width: 25%;
+    }
+
+    .ptext {
+        font-size: 12px;
+    }
+}
