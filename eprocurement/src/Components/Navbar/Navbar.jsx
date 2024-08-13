@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 import "./Navbar.css";
-import logo from "../../assets/LOGO (1).png";
-import assembly from "../../assets/goa assembly.jpg";
-import govgoa from "../../assets/goalogo2.png";
+const logo = "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2FLOGO%20(1).png?alt=media&token=32064bd5-b081-42fb-af9d-5fe7afcff409";
+const assembly = "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2Fgoa%20assembly.jpg?alt=media&token=afad3b4b-41ed-4c95-9d9f-40298b9159f7";
+const govgoa = "https://firebasestorage.googleapis.com/v0/b/eprocurement-d1959.appspot.com/o/assests%2Fgoalogo2.png?alt=media&token=51193387-b505-4549-ac8f-bafaa93a311a";
 import home from "../../assets/home.svg";
 import contact from "../../assets/contact.svg";
 import map from "../../assets/map.svg";
