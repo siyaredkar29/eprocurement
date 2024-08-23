@@ -23,10 +23,10 @@ const Mobmenu = () => {
     f();
   }, []);
 
-  const func2 = (info, path) => {
+  const func2 = (info, route) => {
     return (
       <>
-        <Card hoverable className="card" onClick={() => navigateTo(path)}>
+        <Card hoverable className="card" onClick={() => navigateTo(route)}>
           <Meta title={info} />
         </Card>
       </>
@@ -63,7 +63,7 @@ const Mobmenu = () => {
         {func2("Cancelled/Retendered", "/")}
         {func2("Downloads", "/")}
         {func2("Announcements", "/")}
-        {func2("Debartment List", "/")}
+     
         {func2("Awards", "/")}
         {func2("Site Compatability", "/")}
       </div>

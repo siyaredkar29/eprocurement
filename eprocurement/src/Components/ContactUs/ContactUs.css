@@ -2,11 +2,13 @@
 .contact-container {
     width: 90%; /* Increased to allow more flexibility */
     max-width: 650px;
-    margin: 4% auto;
+   
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: transparent;
+    margin-top: -2%;
+    margin-bottom: 2%;
 }
 
 .contact-container h2 {

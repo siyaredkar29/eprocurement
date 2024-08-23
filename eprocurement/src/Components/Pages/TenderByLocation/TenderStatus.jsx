@@ -1,20 +1,26 @@
 import { useState } from "react";
-import { Form, Input, Button } from "antd";
-import { fetchTendersByLocation } from "../../../Authentication";
-import "./Tender.css";
+import { Form, Select, Button } from "antd";
+import { fetchTendersByStatus } from "../../../Authentication"; // Adjust according to your file structure
+import "./Tender.css"
+const { Option } = Select;
 
-const TenderByLocation = () => {
+const TenderByStatus = () => {
+
   const handleHomeClick = () => {
     window.location.href = '/';
   };
   const [tenders, setTenders] = useState([]);
-  const [location, setLocation] = useState('');
+  const [status, setStatus] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
+  const handleStatusChange = (value) => {
+    setStatus(value);
+  };
+
   const onFinish = async (values) => {
-    const { location } = values;
-    setLocation(location);
-    const data = await fetchTendersByLocation(location);
+    const { status } = values;
+    setStatus(status);
+    const data = await fetchTendersByStatus(status);
     setTenders(data);
     setSubmitted(true);
   };
@@ -28,20 +34,25 @@ const TenderByLocation = () => {
         className="tender-search-form"
         onFinish={onFinish}
       >
-        <h1>Tender Search by Location</h1><br></br>
+        <h1>Tender Search by Status</h1>
+        <br />
         <p className="ptext">
-          Please type in the location, the search will return a list of tenders
-          and related information based on the location entered.
-        </p><br></br>
-        
+          Please select a status from the dropdown to search for tenders.
+        </p>
+        <br />
         <Form.Item
-          label="Tender Search By Location"
-          name="location"
-          rules={[
-            { required: true, message: "Please enter the city or location" },
-          ]}
+          label="Tender Status"
+          name="status"
+          rules={[{ required: true, message: "Please select a status" }]}
         >
-          <Input placeholder="Please enter the city or location" />
+          <Select placeholder="Select a status" onChange={handleStatusChange}>
+            <Option value="To Be Opened">To Be Opened</Option>
+            <Option value="Technical Bid Opening">Technical Bid Opening</Option>
+            <Option value="Technical Evaluation">Technical Evaluation</Option>
+            <Option value="Financial Bid Opening">Financial Bid Opening</Option>
+            <Option value="Financial Evaluation">Financial Evaluation</Option>
+            <Option value="AOC">AOC</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item className="form-buttons">
@@ -52,14 +63,13 @@ const TenderByLocation = () => {
       </Form>
 
       {submitted && (
-        
-          <div className="tender-results-container">
-          <h2 className="tendershead">Tenders in {location}</h2>
+        <div className="tender-results-container">
+          <h2>Tenders with Status: {status}</h2>
           <div className="tender-results">
             <ul>
               {tenders.length > 0 ? (
                 tenders.map((tender) => (
-                  <ul key={tender._id}>
+                  <p key={tender._id}>
                     <strong>Name:</strong> {tender.name}
                     <br />
                     <strong>Location:</strong> {tender.location}
@@ -78,21 +88,19 @@ const TenderByLocation = () => {
                     <br />
                     <strong>Cancelled or Re-rendered:</strong>{" "}
                     {tender.cancelled ? "Cancelled" : "Re-rendered"}
-                    <br /><br></br>
-                    <hr />
-                    <br></br>
-                  </ul>
+                    <br /><br/>
+                    <hr /><br/>
+                  </p>
                 ))
               ) : (
-                <li>No tenders found.</li>
+                <p>No tenders found.</p>
               )}
             </ul>
           </div>
         </div>
-        
       )}
     </div>
   );
 };
 
-export default TenderByLocation;
+export default TenderByStatus;

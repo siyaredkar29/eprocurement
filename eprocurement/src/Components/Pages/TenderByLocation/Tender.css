@@ -1,17 +1,22 @@
+.backimg {
+    background-image: url("../../../assets/loginpg.jpeg");
+    background-size: cover;
+    background-position: center;
+    display: flex; /* Make the container a flexbox */
+    justify-content: center; /* Center the content horizontally */
+    align-items: flex-start; /* Align items at the top */
+    padding-top: 5%; /* Add some padding at the top */
+}
+
 .tender-search-form {
     max-width: 40%;
-    margin-top: 7%;
-    margin-left: 4%;
-    padding: 5%;
+    padding: 6%;
     border: 1px solid #f0f0f0;
     border-radius: 14px;
     background-color: #ffffff;
     box-shadow: 0px 8px 32px 0 rgba(0, 0, 0, 0.44);
-    
-    /* Responsive adjustments */
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-right: 5%; /* Add some space between the form and the results */
+    margin-top: 5%;
 }
 
 .tender-search-form .ant-form-item-label > label {
@@ -36,11 +41,23 @@
     color: rgb(0, 0, 0) !important;
 }
 
-/* Background Image */
-.backimg {
-    background-image: url("../../../assets/loginpg.jpeg");
-    background-size: cover;
-    background-position: center;
+/* Tender Results Container */
+.tender-results-container {
+    max-width: 40%; /* Ensure the results container has a maximum width */
+    margin-top: 10%;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 32px 0 rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-left: 5%;
+}
+
+.tender-results {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    background-color: #ffffff;
 }
 
 /* Additional text styling */
@@ -49,21 +66,7 @@
     font-family: Arial, sans-serif;
 }
 
-/* Tender Results Container */
-.tender-results-container {
-    margin-top: 30px;
-}
 
-.tender-results {
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid #e0e0e0;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-}
-
-/* Media Queries for Responsiveness */
 @media (max-width: 1200px) {
     .tender-search-form {
         max-width: 60%;
@@ -104,5 +107,23 @@
 
     .ptext {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .backimg {
+        flex-direction: column; /* Stack the form and results vertically */
+        align-items: center; /* Center the items */
+    }
+
+    .tender-search-form, .tender-results-container {
+        max-width: 80%; /* Full width on smaller screens */
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .tender-results-container {
+        margin-top: 5%; /* Add some space between form and results */
+        margin-bottom: 10%;
     }
 }

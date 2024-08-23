@@ -16,67 +16,82 @@ function generateRandomPassword() {
   }
 
 
-exports.signIn = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    console.log(email, password);
-
-    if (!email || !password) {
-      return res.status(400).json({ error: "required data field is empty" });
+  exports.signIn = async (req, res) => {
+    try {
+      const { email, password ,role} = req.body;
+      console.log(email);
+  
+      if (!email || !password) {
+        return res.status(400).json({ error: "required data field is empty" });
+      }
+  
+      // User already exists
+      const userExist = await User.findOne({ email });
+  
+      const result = await bcrypt.compare(password, userExist?.password);
+      if (!userExist || !result) {
+        return res.status(404).json({ error: "Invalid credentials" });
+      }
+  
+      // Generate token
+      const token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET_KEY, {
+        expiresIn: "2d",
+      });
+  
+      // Check if the email contains '@nic.in'
+      const isNicUser = email.endsWith('@nic.in');
+      console.log(isNicUser);
+      
+      const userRole = userExist.role;
+      console.log(userRole);
+      res.status(200).json({ message: "LOGIN Successful", token, isNicUser, userRole });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Signin failed! Check if user is registered" });
     }
+  };
+  
 
-    //user already exist
-    const userExist = await User.findOne({ email });
-
-    const result = await bcrypt.compare(password, userExist?.password);
-    if (!userExist || !result) {
-      return res.status(404).json({ error: "Invalid credentials" });
-    }
-
-    //generate token
-    const token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "2d",
-    });
-
-    res.status(200).json({ message: "LOGIN Successfull", token });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Signin failed! check if user registered" });
-  }
-};
-
-exports.googleSignIn = async (req, res) => {
-  try {
-    const { firstName, lastName, email } = req.body;
-    console.log(email);
-
-    if (!email) {
-      return res.status(400).json({ error: "required data field is empty" });
-    }
-
-    //user already exist
-    let userExist = await User.findOne({ email });
-    
-    if (!userExist) {
+  exports.googleSignIn = async (req, res) => {
+    try {
+      const { firstName, lastName, email } = req.body;
+      //console.log(email);
+  
+      if (!email) {
+        return res.status(400).json({ error: "required data field is empty" });
+      }
+  
+      // User already exists
+      let userExist = await User.findOne({ email });
+      
+      if (!userExist) {
         const password = generateRandomPassword();
         const salt = Number(process.env.SALT);
         const hashedPassword = await bcrypt.hash(password, salt);
-      const user = new User({ email, firstName, lastName ,password:hashedPassword});
-      await user.save();
-      userExist=user;
-    }
-    
-    const token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "2d",
-    });
-    res.status(200).json({ message: "LOGIN Successfull", token });
+        const user = new User({ email, firstName, lastName, password: hashedPassword });
+        await user.save();
+        userExist = user;
+      }
+  
+      const token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET_KEY, {
+        expiresIn: "2d",
+      });
+  
+      // Check if the email contains '@nic.in'
+      const isNicUser = email.endsWith('@nic.in');
+      console.log(isNicUser);
+      
+      if(isNicUser)
+      {res.status(200).json({ message: "LOGIN Successful", token, isNicUser:true });}
 
-    //generate token
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Google Login Error" });
-  }
-};
+      else
+      {res.status(200).json({ message: "LOGIN Successful", token, isNicUser });}
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Google Login Error" });
+    }
+  };
+  
 
 exports.signUp = async (req, res) => {
   try {

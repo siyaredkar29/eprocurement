@@ -1,0 +1,205 @@
+
+/* Default Styles */
+.fulltablee {
+    box-shadow: 0px 8px 32px 0 rgba(0, 0, 0, 0.44);
+    padding: 20px;
+    border-radius: 18px;
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 40%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.headinggg {
+    font-size: 24px;
+    color: #ffffff;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.ppp {
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8%;
+}
+
+.ppp p {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+    margin-left: 28%;
+}
+
+.ppp p strong {
+    width: 45%; /* Adjust this percentage to control the width of labels */
+}
+
+.ppp span {
+    width: 55%; /* Adjust this percentage to control the width of values */
+    text-align: left;
+}
+
+.note {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #000;
+}
+
+.note1 {
+    margin-left: 15%;
+}
+
+.browser-compatibility-table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.browser-compatibility-table th,
+.browser-compatibility-table td {
+    border: 1px solid #999;
+    padding: 8px;
+    text-align: left;
+}
+
+.browser-compatibility-table th {
+    background-color: #f2f2f2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .fulltablee {
+        max-width: 50%; /* Adjust width for tablets */
+        margin-top: 30%;
+        margin-bottom: 20%;
+    }
+
+    .headinggg {
+        font-size: 22px; /* Slightly reduce font size */
+    }
+
+    .ppp {
+        font-size: 16px; /* Adjust font size */
+        margin-top: 5%;
+        margin-left: 5%; /* Reduce left margin */
+    }
+
+    .ppp p {
+        margin-left: 0; /* Remove left margin for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .fulltablee {
+        max-width: 80%; /* Further adjust width for smaller tablets */
+        padding: 15px;  /* Adjust padding for smaller screens */
+    }
+
+    .headinggg {
+        font-size: 20px; /* Reduce heading size */
+    }
+
+    .ppp {
+        font-size: 16px;
+        margin-top: 5%;
+        margin-left: 0; /* Center align content */
+    }
+
+    .ppp p {
+        flex-direction: row; /* Keep elements side by side */
+        justify-content: space-between;
+        margin-left: 0;
+    }
+
+    .ppp p strong, .ppp span {
+        width: 50%; /* Ensure labels and values each take 50% width */
+        text-align: left; /* Align text to the left */
+    }
+
+    .note1 {
+        margin-left: 0; /* Center align note */
+    }
+
+    .browser-compatibility-table {
+        font-size: 14px; /* Reduce font size for better fit */
+    }
+}
+
+@media (max-width: 480px) {
+    .fulltablee {
+        max-width: 95%; /* Use most of the screen width for mobile devices */
+        padding: 10px; /* Further reduce padding */
+    }
+
+    .headinggg {
+        font-size: 18px; /* Smaller font size for heading */
+    }
+
+    .ppp {
+        font-size: 14px;
+        margin-top: 5%;
+    }
+
+    .ppp p {
+        flex-direction: row; /* Keep elements side by side */
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .ppp p strong, .ppp span {
+        width: 50%; /* Ensure labels and values each take 50% width */
+        text-align: left;
+    }
+
+    .note {
+        font-size: 14px;
+        margin-left: 0; /* Align note to the center */
+    }
+
+    .browser-compatibility-table th, .browser-compatibility-table td {
+        padding: 6px; /* Reduce padding inside table cells */
+    }
+}
+
+@media (max-width: 300px) {
+    .fulltablee {
+        max-width: 100%; /* Full width for very small screens */
+        padding: 8px; /* Further reduce padding */
+    }
+
+    .headinggg {
+        font-size: 16px; /* Even smaller font size for heading */
+    }
+
+    .ppp {
+        font-size: 12px; /* Smaller font size */
+        margin-top: 5%;
+    }
+
+    .ppp p {
+        flex-direction: column; /* Stack elements vertically */
+        margin-top: 8px;
+    }
+
+    .ppp p strong, .ppp span {
+        width: 100%; /* Full width for labels and values */
+        text-align: left;
+        margin-bottom: 4px; /* Space between label and value */
+    }
+
+    .note {
+        font-size: 12px; /* Smaller font size for notes */
+        margin-left: 0; /* Align note to the center */
+    }
+
+    .browser-compatibility-table th, .browser-compatibility-table td {
+        padding: 4px; /* Further reduce padding inside table cells */
+        font-size: 12px; /* Adjust font size for table cells */
+    }
+}

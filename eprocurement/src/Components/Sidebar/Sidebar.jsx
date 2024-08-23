@@ -41,12 +41,25 @@ const Sidebar = () => {
   const handleClick = (val) => navigate(val);
 
   const [AUTH, SETAUTH] = useState(false);
+  const [isNicUser, setIsNicUser] = useState(false);
+  const [role, setRole] = useState(null);
+
   useEffect(() => {
     const f = async () => {
-      SETAUTH(await isAuth());
+      const authResponse = await isAuth();
+      //console.log("Auth Response:", authResponse.isAuthenticated); // Log the entire response to ensure it's as expected
+      SETAUTH(authResponse.isAuthenticated);
+      setIsNicUser(authResponse.isNicUser); 
+      console.log(authResponse);
+      
+      if(authResponse.userRole)
+      {
+        setRole(localStorage.getItem("role"));
+      }
     };
+  
     f();
-  });
+  }, []);
 
   const func1 = (info, Icons) => {
     return (
@@ -61,7 +74,10 @@ const Sidebar = () => {
   const func2 = (info,route) => {
     return (
       <>
-        <Menu.Item  onClick={() => window.location.assign(route)} className="menu-item1">{info}</Menu.Item>
+        <Menu.Item 
+         onClick={() => window.location.assign(route)} 
+         className="menu-item1">{info}
+        </Menu.Item>
         <hr className="line" />
       </>
     );
@@ -166,6 +182,9 @@ const Sidebar = () => {
               onClick={() => {
                 SETAUTH(false);
                 localStorage.removeItem("token");
+                localStorage.removeItem("isNicUser");
+                localStorage.removeItem("role");
+                window.location.reload();
               }}
             >
               SIGNOUT
@@ -183,17 +202,19 @@ const Sidebar = () => {
           )}
 
           <hr className="line" />
+          {isNicUser && role==='creator' && func2("Create Tender", "tenders/create")}
+          {isNicUser && role==='publisher' && func2("Approve Tender", "tenders/approve")}
           {func2("Tenders by location","/tender-by-location")}
-          {func2("Tenders by Organisation")}
-          {func2("Tenders by Classification")}
-          {func2("Tenders in Archive")}
-          {func2("Tenders Status")}
-          {func2("Cancelled/Retendered")}
-          {func2("Downloads")}
-          {func2("Announcements")}
-          {func2("Debartment List")}
-          {func2("Awards")}
-          {func2("Site Compatability")}
+          {func2("Tenders by Organisation","/tender-by-organisation")}
+          {func2("Tenders by Classification","/tender-by-classification")}
+          {func2("Tenders in Archive","/tenders-in-archive" )}
+          {func2("Tenders Status","/tender-status")}
+          {func2("Cancelled/Retendered","/current")}
+          {func2("Downloads","/downloads")}
+          {func2("Announcements","/announcements")}
+          
+          {func2("Awards","/awards")}
+          {func2("Site Compatability","/sitec")}
         </Menu>
       </Layout>
     </>

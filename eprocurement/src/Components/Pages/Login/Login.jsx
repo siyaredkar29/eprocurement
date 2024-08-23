@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form, Input, Button, Divider, message } from "antd";
+import { Form, Input, Button, Typography, Divider, message } from "antd";
 import {
   GoogleOutlined,
   FacebookOutlined,
@@ -19,27 +19,52 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../../Components/Loading/Loading";
 
 const LoginForm = () => {
-  useEffect(() => {
-    const f = async () => {
-      if (await isAuth()) {
-        message.info("Already Signedin", 4);
-        navigate("/");
-      }
-    };
-    f();
-  }, []);
-
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLocked, setIsLocked] = useState(false);
+  const lockoutDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (await isAuth()) {
+        message.info("Already Signed in", 4);
+        navigate("/");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+
+  useEffect(() => {
+    const checkLockout = () => {
+      const lockout = localStorage.getItem("lockoutTime");
+
+      if (lockout) {
+        const currentTime = new Date().getTime();
+        const timeRemaining = lockout - currentTime;
+
+        if (timeRemaining > 0) {
+          setIsLocked(true);
+
+          setTimeout(() => {
+            setIsLocked(false);
+            localStorage.removeItem("lockoutTime");
+            message.success("Lockout period is over. You can try logging in now.",4);
+          }, timeRemaining);
+        } else {
+          setIsLocked(false);
+          localStorage.removeItem("lockoutTime");
+        }
+      }
+    };
+
+    checkLockout();
+  }, []);
 
   const googlelogin = async () => {
     const provider = new GoogleAuthProvider();
-
-    provider.setCustomParameters({
-      prompt: "select_account", // Forces the account selection every time
-    });
-
     setLoading(true);
     signInWithPopup(auth, provider)
       .then(async (result) => {
@@ -53,9 +78,6 @@ const LoginForm = () => {
               ? user.displayName.split(" ").slice(1).join(" ")
               : "",
           });
-          // console.log(user.auth);
-          // console.log(user.displayName);
-          // console.log(user.email);
 
           const userData = {
             email: user.email,
@@ -64,24 +86,24 @@ const LoginForm = () => {
               ? user.displayName.split(" ").slice(1).join(" ")
               : "",
           };
-          //console.log(userData);
 
           const res = await axios({
             method: "POST",
             url: "http://localhost:9000/users/googlesignin",
             data: userData,
           });
-          // console.log(res.data);
           setToken(res.data.token);
+          localStorage.setItem("isNicUser", res.data.isNicUser);
+          localStorage.setItem("role", res.data.userRole);
+
           message.success("Login Successful", 5);
 
           setTimeout(() => {
-            window.location.href = "/";
+            navigate("/");
           }, 1000);
         }
       })
       .catch((error) => {
-        console.error("Error during login:", error);
         message.error("Login Failed", 5);
       })
       .finally(() => {
@@ -90,9 +112,14 @@ const LoginForm = () => {
   };
 
   const loginToDb = async () => {
-    try {
-      setLoading(true);
+    const failedAttempts = Number(localStorage.getItem("failedAttempts") || 0);
 
+    if (isLocked) {
+      message.error(`You are locked out. Try again later`);
+      return;
+    }
+
+    try {
       const res = await axios({
         method: "POST",
         url: "http://localhost:9000/users/signin",
@@ -100,34 +127,55 @@ const LoginForm = () => {
       });
 
       message.success(res.data.message);
-      //console.log(res.data);
       setToken(res.data.token);
+
+      localStorage.setItem("isNicUser", res.data.isNicUser);
+      localStorage.setItem("role", res.data.userRole);
+
+      localStorage.removeItem("failedAttempts");
+      localStorage.removeItem("lockoutTime");
     } catch (error) {
-      message.error(
-        `error:${error.response ? error.response.data.error : error.message}`,
-        4
-      );
+      const updatedFailedAttempts = failedAttempts + 1;
+      localStorage.setItem("failedAttempts", updatedFailedAttempts);
+
+      if (updatedFailedAttempts >= 3) {
+        const lockoutTime = new Date().getTime() + lockoutDuration;
+        localStorage.setItem("lockoutTime", lockoutTime);
+        setIsLocked(true);
+        message.error("Too many failed attempts. You have been locked out.");
+      } else {
+        message.error(
+          `Invalid credentials. ${3 - updatedFailedAttempts} attempt(s) left.`
+        );
+      }
     }
   };
 
   const handleSubmit = async (event) => {
-    loginToDb();
     event.preventDefault();
-    setLoading(true);
+
+    if (isLocked) {
+      message.error(`You are locked out. Please try again later.`);
+      return;
+    }
+
+    setLoading(false);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      message.success("Login Successful", 5);
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 1000);
+      await loginToDb();
+     
+      if (!isLocked) {
+        await signInWithEmailAndPassword(auth, email, password);
+        message.success("Login Successful", 5);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
     } catch (error) {
       message.error(`Error: ${error.message}`, 4);
     } finally {
       setLoading(false);
     }
   };
-  const navigate = useNavigate();
-  const handleClick = (val) => navigate(val);
 
   return (
     <Loading loading={loading}>
@@ -140,6 +188,7 @@ const LoginForm = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onPressEnter={handleSubmit}
               aria-label="Email"
             />
           </Form.Item>
@@ -149,17 +198,25 @@ const LoginForm = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onPressEnter={handleSubmit}
               aria-label="Password"
             />
           </Form.Item>
-          <Button type="primary" onClick={handleSubmit} block loading={loading}>
+          <Button
+            type="primary"
+            onClick={handleSubmit}
+            block
+            loading={loading}
+            disabled={isLocked}
+          >
             LOGIN
           </Button>
+
           <div className="newuser">
             New User?{" "}
             <button
               onClick={() => {
-                handleClick("/register");
+                navigate("/register");
               }}
             >
               register here
@@ -178,3 +235,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+

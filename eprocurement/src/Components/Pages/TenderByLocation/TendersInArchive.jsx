@@ -1,20 +1,21 @@
 import { useState } from "react";
 import { Form, Input, Button } from "antd";
-import { fetchTendersByLocation } from "../../../Authentication";
-import "./Tender.css";
+import { fetchTendersByTenderId } from "../../../Authentication";
+import "./Tender.css"
 
-const TenderByLocation = () => {
+const TenderById = () => {
+
   const handleHomeClick = () => {
     window.location.href = '/';
   };
   const [tenders, setTenders] = useState([]);
-  const [location, setLocation] = useState('');
+  const [tenderId, setTenderId] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const onFinish = async (values) => {
-    const { location } = values;
-    setLocation(location);
-    const data = await fetchTendersByLocation(location);
+    const { tenderId } = values;
+    setTenderId(tenderId);
+    const data = await fetchTendersByTenderId(tenderId); // Fetch tenders by tenderId
     setTenders(data);
     setSubmitted(true);
   };
@@ -28,20 +29,20 @@ const TenderByLocation = () => {
         className="tender-search-form"
         onFinish={onFinish}
       >
-        <h1>Tender Search by Location</h1><br></br>
+        <h1>Tender Search by Tender ID</h1>
+        <br />
         <p className="ptext">
-          Please type in the location, the search will return a list of tenders
-          and related information based on the location entered.
-        </p><br></br>
-        
+          Please enter the Tender ID to search for related tenders and information.
+        </p>
+        <br />
         <Form.Item
-          label="Tender Search By Location"
-          name="location"
+          label="Tender Search By ID"
+          name="tenderId"
           rules={[
-            { required: true, message: "Please enter the city or location" },
+            { required: true, message: "Please enter the Tender ID" },
           ]}
         >
-          <Input placeholder="Please enter the city or location" />
+          <Input placeholder="Please enter the Tender ID" />
         </Form.Item>
 
         <Form.Item className="form-buttons">
@@ -52,14 +53,15 @@ const TenderByLocation = () => {
       </Form>
 
       {submitted && (
-        
-          <div className="tender-results-container">
-          <h2 className="tendershead">Tenders in {location}</h2>
+        <div className="tender-results-container">
+          <h2>Tenders: {tenderId}</h2>
           <div className="tender-results">
             <ul>
               {tenders.length > 0 ? (
                 tenders.map((tender) => (
                   <ul key={tender._id}>
+                    <strong>Tender ID:</strong> {tender.tenderId}
+                    <br />
                     <strong>Name:</strong> {tender.name}
                     <br />
                     <strong>Location:</strong> {tender.location}
@@ -79,8 +81,7 @@ const TenderByLocation = () => {
                     <strong>Cancelled or Re-rendered:</strong>{" "}
                     {tender.cancelled ? "Cancelled" : "Re-rendered"}
                     <br /><br></br>
-                    <hr />
-                    <br></br>
+                    <hr /><br></br>
                   </ul>
                 ))
               ) : (
@@ -89,10 +90,9 @@ const TenderByLocation = () => {
             </ul>
           </div>
         </div>
-        
       )}
     </div>
   );
 };
 
-export default TenderByLocation;
+export default TenderById;

@@ -1,7 +1,7 @@
 const cors = require("cors")
 const express = require("express");
 const mongoose = require("mongoose");
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./Routes/userRoutes");
 const app = express();
 const tenderRoutes = require('./Routes/tenderRoutes');
 const verifyJWT = require("./middleware/jwtAuth");
@@ -11,9 +11,6 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (request, response) => {
-  //response.sendFile("C:\\Users\\Tanvi\\Documents\\INTERNSHIP ITG\\backend\\hi.html")
-});
 
 
 app.use("/users", userRoutes);

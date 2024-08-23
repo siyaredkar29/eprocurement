@@ -1,20 +1,22 @@
 import { useState } from "react";
-import { Form, Input, Button } from "antd";
-import { fetchTendersByLocation } from "../../../Authentication";
-import "./Tender.css";
+import { Form, Button, Select } from "antd";
+import { fetchTendersByClassification } from "../../../Authentication"; // Replace with your actual fetch function
+import "./Tender.css"
 
-const TenderByLocation = () => {
+const { Option } = Select;
+
+const TenderByClassification = () => {
   const handleHomeClick = () => {
     window.location.href = '/';
   };
   const [tenders, setTenders] = useState([]);
-  const [location, setLocation] = useState('');
+  const [classification, setClassification] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const onFinish = async (values) => {
-    const { location } = values;
-    setLocation(location);
-    const data = await fetchTendersByLocation(location);
+    const { classification } = values;
+    setClassification(classification);
+    const data = await fetchTendersByClassification(classification); // Replace with your actual fetch function
     setTenders(data);
     setSubmitted(true);
   };
@@ -28,20 +30,32 @@ const TenderByLocation = () => {
         className="tender-search-form"
         onFinish={onFinish}
       >
-        <h1>Tender Search by Location</h1><br></br>
+        <h1>Tender Search by Classification</h1>
+        <br />
         <p className="ptext">
-          Please type in the location, the search will return a list of tenders
-          and related information based on the location entered.
-        </p><br></br>
-        
+          Please select a classification, the search will give a list of tenders
+          and related information based on the selected classification.
+        </p>
+        <br />
         <Form.Item
-          label="Tender Search By Location"
-          name="location"
+          label="Tender Search By Classification"
+          name="classification"
           rules={[
-            { required: true, message: "Please enter the city or location" },
+            { required: true, message: "Please select a classification" },
           ]}
         >
-          <Input placeholder="Please enter the city or location" />
+          <Select placeholder="Please select a classification">
+            <Option value="Environmental">Environmental</Option>
+            <Option value="Infrastructure">Infrastructure</Option>
+            <Option value="Healthcare">Healthcare</Option>
+            <Option value="Technology">Technology</Option>
+            <Option value="Research">Research</Option>
+            <Option value="Supply">Supply</Option>
+            <Option value="Energy">Energy</Option>
+            <Option value="Culture">Culture</Option>
+            <Option value="Office Supplies">Office Supplies</Option>
+            <Option value="Education">Education</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item className="form-buttons">
@@ -52,9 +66,8 @@ const TenderByLocation = () => {
       </Form>
 
       {submitted && (
-        
-          <div className="tender-results-container">
-          <h2 className="tendershead">Tenders in {location}</h2>
+        <div className="tender-results-container">
+          <h2>Tenders: {classification}</h2>
           <div className="tender-results">
             <ul>
               {tenders.length > 0 ? (
@@ -79,8 +92,7 @@ const TenderByLocation = () => {
                     <strong>Cancelled or Re-rendered:</strong>{" "}
                     {tender.cancelled ? "Cancelled" : "Re-rendered"}
                     <br /><br></br>
-                    <hr />
-                    <br></br>
+                    <hr /><br></br>
                   </ul>
                 ))
               ) : (
@@ -89,10 +101,9 @@ const TenderByLocation = () => {
             </ul>
           </div>
         </div>
-        
       )}
     </div>
   );
 };
 
-export default TenderByLocation;
+export default TenderByClassification;

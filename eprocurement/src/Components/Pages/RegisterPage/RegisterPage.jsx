@@ -86,6 +86,7 @@ const RegisterPage = () => {
               placeholder="Enter your first name"
               value={firstName} // Bind the input value to the state variable
               onChange={(e) => setFirstName(e.target.value)} // Update state on change
+              onPressEnter={handleSubmit}
             />
           </Form.Item>
           <Form.Item label="Last Name" name="lastName">
@@ -93,6 +94,7 @@ const RegisterPage = () => {
               placeholder="Enter your last name"
               value={lastName} // Bind the input value to the state variable
               onChange={(e) => setLastName(e.target.value)} // Update state on change
+              onPressEnter={handleSubmit}
             />
           </Form.Item>
           <Form.Item label="Email" name="email">
@@ -100,6 +102,7 @@ const RegisterPage = () => {
               placeholder="Enter your email"
               value={email} // Bind the input value to the state variable
               onChange={(e) => setEmail(e.target.value)} // Update state on change
+              onPressEnter={handleSubmit}
             />
           </Form.Item>
           <Form.Item label="Password" name="password">
@@ -108,6 +111,7 @@ const RegisterPage = () => {
               placeholder="Enter your password"
               value={password} // Bind the input value to the state variable
               onChange={(e) => setPassword(e.target.value)} // Update state on change
+              onPressEnter={handleSubmit}
             />
           </Form.Item>
           <Button type="primary" block onClick={handleSubmit} loading={loading}>

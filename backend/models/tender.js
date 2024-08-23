@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const tenderSchema = new Schema({
+  tenderId:{
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -20,12 +24,7 @@ const tenderSchema = new Schema({
   },
   productCategory: {
     type: String,
-    enum: ['civil', 'electrical', 'job', 'marine', 'food', 'IT'],
-    required: true,
-  },
-  expire: {
-    type: String,
-    enum: ['today', 'tomorrow', 'within 7 days', 'beyond 7 days'],
+    enum: ['civil','medical', 'electrical', 'job', 'marine', 'food', 'IT'],
     required: true,
   },
   classification: {
@@ -34,8 +33,15 @@ const tenderSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['open', 'closed', 'pending'],
-    default: 'open',
+    enum: [
+      'To Be Opened Tenders',
+      'Technical Bid Opening',
+      'Technical Evaluation',
+      'Financial Bid Opening',
+      'Financial Evaluation',
+      'AOC'
+    ],
+    default: 'To Be Opened Tenders',
   },
   cancelled: {
     type: Boolean,
@@ -46,6 +52,7 @@ const tenderSchema = new Schema({
     default: false,
   },
 }, 
+{ timestamps: true }
 );
 
 const Tender = mongoose.model('tender', tenderSchema);
